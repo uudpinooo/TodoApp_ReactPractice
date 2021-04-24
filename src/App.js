@@ -5,19 +5,27 @@ import { InputForm } from './atoms/InputForm';
 import { CompleteTodo } from './components/CompleteTodo';
 import { IncompleteTodo } from './components/IncompleteTodo';
 
-const completeTodos = ["牛乳を買う", "本を読む", "電話する", "部屋を片付ける"];
-// const inCompleteTodos = ["勉強する", "洗濯する", "メールを返す", "料理する"];
-
 function App() {
   const [inCompleteTodos, setInCompleteTodos] = useState([]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   return (
     <StyledWrapper>
       <StyledTitle>Todo List</StyledTitle>
       <InputForm inCompleteTodos={inCompleteTodos} setInCompleteTodos={setInCompleteTodos} />
       <StyledDiv>
-        <IncompleteTodo todos={inCompleteTodos}  />
-        <CompleteTodo todos={completeTodos} />
+        <IncompleteTodo
+          inCompleteTodos={inCompleteTodos}
+          setInCompleteTodos={setInCompleteTodos}
+          completeTodos={completeTodos}
+          setCompleteTodos={setCompleteTodos}
+        />
+        <CompleteTodo
+          inCompleteTodos={inCompleteTodos}
+          setInCompleteTodos={setInCompleteTodos}
+          completeTodos={completeTodos}
+          setCompleteTodos={setCompleteTodos}
+        />
       </StyledDiv>
     </StyledWrapper>
   );

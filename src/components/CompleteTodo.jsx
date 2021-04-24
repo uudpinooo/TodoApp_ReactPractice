@@ -1,19 +1,30 @@
 import styled from 'styled-components';
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
-export const CompleteTodo = ({ todos }) => {
+export const CompleteTodo = ({ inCompleteTodos, setInCompleteTodos, completeTodos, setCompleteTodos }) => {
+  const onClickBack = (index) => {
+    // completeTodosから削除
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+    setCompleteTodos(newCompleteTodos);
+
+    // 対象のtodoをinCompleteTodosへ追加
+    const target = completeTodos[index];
+    const newInCompleteTodos = [...inCompleteTodos, target];
+    setInCompleteTodos(newInCompleteTodos);
+  }
 
   return (
     <>
       <StyledDiv>
         <h3>Completed</h3>
         <ul>
-          {todos.map((todo) => {
+          {completeTodos.map((completeTodo, index) => {
             return (
-              <StyledLi key={todo}>
-                {`・${todo}`}
+              <StyledLi key={index}>
+                {`・${completeTodo}`}
                 <StyledBtns>
-                  <PrimaryButton>戻す</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickBack(index)}>戻す</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
 

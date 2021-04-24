@@ -1,20 +1,38 @@
 import styled from 'styled-components';
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
-export const IncompleteTodo = ({ todos }) => {
+export const IncompleteTodo = ({ inCompleteTodos, setInCompleteTodos, completeTodos, setCompleteTodos }) => {
+  const onClickComplete = (index) => {
+    // inCompleteTodosから削除
+    const newInCompleteTodos = [...inCompleteTodos]; 
+    newInCompleteTodos.splice(index, 1);
+    setInCompleteTodos(newInCompleteTodos);
+
+    // 対象のtodoをcompleteTodosへ追加
+    const target = inCompleteTodos[index];
+    const newCompleteTodos = [...completeTodos, target];
+    setCompleteTodos(newCompleteTodos);
+  };
+
+  const onClickDelete = (index) => {
+    // inCompleteTodosから削除
+    const newInCompleteTodos = [...inCompleteTodos];
+    newInCompleteTodos.splice(index, 1);
+    setInCompleteTodos(newInCompleteTodos);
+  }
 
   return (
     <>
       <StyledDiv>
         <h3>Todos</h3>
         <ul>
-          {todos.map((todo) => {
+          {inCompleteTodos.map((inCompleteTodo, index) => {
             return (
-              <StyledLi key={todo}>
-                {`・${todo}`}
+              <StyledLi key={index}>
+                {`・${inCompleteTodo}`}
                 <StyledBtns>
-                  <PrimaryButton>完了</PrimaryButton>
-                  <PrimaryButton>削除</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickComplete(index)}>完了</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickDelete(index)}>削除</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
             );

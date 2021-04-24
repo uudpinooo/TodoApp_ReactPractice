@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-export const PrimaryButton = ({children, className, onClick}) => {
+export const PrimaryButton = ({ children, className, onClick }) => {
 
   return (
     <>
-      <StyledButton className={className} onClick={onClick} role="button">{children}</StyledButton>
+      <StyledButton className={className} onClick={onClick} role="button">
+        {children}
+      </StyledButton>
     </>
   );
 };
