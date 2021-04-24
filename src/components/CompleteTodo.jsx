@@ -1,24 +1,26 @@
 import styled from 'styled-components';
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
-export const CompleteTodo = (props) => {
-  const { todo } = props;
+export const CompleteTodo = ({ todos }) => {
 
   return (
     <>
-    <StyledDiv>
-    <h3>Completed</h3>
-    <ul>
-      <StyledLi>
-        <StyledP>{todo}</StyledP>
-        <PrimaryButton>戻す</PrimaryButton>
-      </StyledLi>
-      <StyledLi>
-        <StyledP>{todo}</StyledP>
-        <PrimaryButton>戻す</PrimaryButton>
-      </StyledLi>
-    </ul>
-    </StyledDiv>
+      <StyledDiv>
+        <h3>Completed</h3>
+        <ul>
+          {todos.map((todo) => {
+            return (
+              <StyledLi key={todo}>
+                {`・${todo}`}
+                <StyledBtns>
+                  <PrimaryButton>戻す</PrimaryButton>
+                </StyledBtns>
+              </StyledLi>
+
+            );
+          })}
+        </ul>
+      </StyledDiv>
     </>
   );
 };
@@ -27,7 +29,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 50vw;
-  padding-left: 5rem;
+  padding: 0 2rem;
 `;
 
 const StyledLi = styled.li`
@@ -36,7 +38,8 @@ const StyledLi = styled.li`
   margin-bottom: 1rem;
 `;
 
-const StyledP = styled.li`
-  margin: 0 1rem 0 0;
+const StyledBtns = styled.div`
+  display: flex;
+  margin-left: auto;
 `;
 
