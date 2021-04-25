@@ -1,31 +1,30 @@
-import { createStore } from 'redux';
+import * as Actions from './actions';
+import initialState from '../store/initialState';
 
-const initialState = {lists: [],};
-
-const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TODO":
+    case Actions.ADD_TODO:
       return {
         lists: [...state.lists, action.payload],
       };
-    case "COMPLETE_TODO":
+    case Actions.COMPLETE_TODO:
       return {
         lists: state.lists.map(list => {
-          if (list.name !== action.payload) return list;
+          if (list.name !== action.payload.name) return list;
           return {
             ...list,
             isCompleted: true,
           };
         })
       };
-    case "DELETE_TODO":
+    case Actions.DELETE_TODO:
       return {
-        lists: state.lists.filter(list => list.name !== action.payload)
+        lists: state.lists.filter(list => list.name !== action.payload.name)
       };
-    case "BACK_TODO":
+    case Actions.BACK_TODO:
       return {
         lists: state.lists.map(list => {
-          if (list.name !== action.payload) return list;
+          if (list.name !== action.payload.name) return list;
           return {
             ...list,
             isCompleted: false,
@@ -36,7 +35,3 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 }
-
-const store = createStore(reducer);
-
-export default store;

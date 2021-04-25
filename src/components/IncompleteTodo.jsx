@@ -1,11 +1,12 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PrimaryButton } from "../atoms/PrimaryButton";
+import { onClickDelete, onClickDone } from '../reducks/lists/actions';
 
 export const IncompleteTodo = ({ inCompleteTodos }) => {
   const dispatch = useDispatch();
-  const onClickDone = (name) => dispatch({ type: "COMPLETE_TODO", payload: name });
-  const onClickDelete = (name) => dispatch({ type: "DELETE_TODO", payload: name });
+  // const onClickDone = (name) => dispatch({ type: "COMPLETE_TODO", payload: name });
+  // const onClickDelete = (name) => dispatch({ type: "DELETE_TODO", payload: name });
 
   return (
     <>
@@ -17,8 +18,8 @@ export const IncompleteTodo = ({ inCompleteTodos }) => {
               <StyledLi key={index}>
                 {`・${todo.name}`}
                 <StyledBtns>
-                  <PrimaryButton onClick={() => onClickDone(todo.name)}>完了</PrimaryButton>
-                  <PrimaryButton onClick={() => onClickDelete(todo.name)}>削除</PrimaryButton>
+                  <PrimaryButton onClick={() => dispatch(onClickDone(todo.name))}>完了</PrimaryButton>
+                  <PrimaryButton onClick={() => dispatch(onClickDelete(todo.name))}>削除</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
             );

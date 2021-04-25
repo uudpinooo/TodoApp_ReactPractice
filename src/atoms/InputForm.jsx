@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { addTodo } from '../reducks/lists/actions';
 import { PrimaryButton } from './PrimaryButton';
 
 export const InputForm = () => {
@@ -9,7 +10,7 @@ export const InputForm = () => {
   const dispatch = useDispatch();
   const onClickSubmit = (value, e) => {
     e.preventDefault();
-    dispatch({ type: "ADD_TODO", payload: { name: value, isCompleted: false } });
+    dispatch(addTodo(value));
     setValue("");
   };
 
