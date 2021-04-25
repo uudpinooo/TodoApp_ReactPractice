@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { InputForm } from './atoms/InputForm';
@@ -6,26 +7,17 @@ import { CompleteTodo } from './components/CompleteTodo';
 import { IncompleteTodo } from './components/IncompleteTodo';
 
 function App() {
-  const [inCompleteTodos, setInCompleteTodos] = useState([]);
-  const [completeTodos, setCompleteTodos] = useState([]);
+  const lists = useSelector(state => state.lists);
+  const inCompleteTodos = lists.filter(list => list.isCompleted === false);
+  const completeTodos = lists.filter(list => list.isCompleted === true);
 
   return (
     <StyledWrapper>
       <StyledTitle>Todo List</StyledTitle>
-      <InputForm inCompleteTodos={inCompleteTodos} setInCompleteTodos={setInCompleteTodos} />
+      <InputForm />
       <StyledDiv>
-        <IncompleteTodo
-          inCompleteTodos={inCompleteTodos}
-          setInCompleteTodos={setInCompleteTodos}
-          completeTodos={completeTodos}
-          setCompleteTodos={setCompleteTodos}
-        />
-        <CompleteTodo
-          inCompleteTodos={inCompleteTodos}
-          setInCompleteTodos={setInCompleteTodos}
-          completeTodos={completeTodos}
-          setCompleteTodos={setCompleteTodos}
-        />
+        <IncompleteTodo inCompleteTodos={inCompleteTodos} />
+        <CompleteTodo completeTodos={completeTodos} />
       </StyledDiv>
     </StyledWrapper>
   );

@@ -1,38 +1,24 @@
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
-export const IncompleteTodo = ({ inCompleteTodos, setInCompleteTodos, completeTodos, setCompleteTodos }) => {
-  const onClickComplete = (index) => {
-    // inCompleteTodosから削除
-    const newInCompleteTodos = [...inCompleteTodos]; 
-    newInCompleteTodos.splice(index, 1);
-    setInCompleteTodos(newInCompleteTodos);
-
-    // 対象のtodoをcompleteTodosへ追加
-    const target = inCompleteTodos[index];
-    const newCompleteTodos = [...completeTodos, target];
-    setCompleteTodos(newCompleteTodos);
-  };
-
-  const onClickDelete = (index) => {
-    // inCompleteTodosから削除
-    const newInCompleteTodos = [...inCompleteTodos];
-    newInCompleteTodos.splice(index, 1);
-    setInCompleteTodos(newInCompleteTodos);
-  }
+export const IncompleteTodo = ({ inCompleteTodos }) => {
+  const dispatch = useDispatch();
+  const onClickDone = (name) => dispatch({ type: "COMPLETE_TODO", payload: name });
+  const onClickDelete = (name) => dispatch({ type: "DELETE_TODO", payload: name });
 
   return (
     <>
       <StyledDiv>
         <h3>Todos</h3>
         <ul>
-          {inCompleteTodos.map((inCompleteTodo, index) => {
+          {inCompleteTodos.map((todo, index) => {
             return (
               <StyledLi key={index}>
-                {`・${inCompleteTodo}`}
+                {`・${todo.name}`}
                 <StyledBtns>
-                  <PrimaryButton onClick={() => onClickComplete(index)}>完了</PrimaryButton>
-                  <PrimaryButton onClick={() => onClickDelete(index)}>削除</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickDone(todo.name)}>完了</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickDelete(todo.name)}>削除</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
             );

@@ -1,22 +1,26 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PrimaryButton } from './PrimaryButton';
 
-export const InputForm = ({inCompleteTodos, setInCompleteTodos}) => {
+export const InputForm = () => {
   const [value, setValue] = useState("");
-  const onChangeInput = (e) => setValue(e.target.value);
 
-  const onClickSubmit = () => {
-    setInCompleteTodos([...inCompleteTodos, value]);
+  const dispatch = useDispatch();
+  const onClickSubmit = (value, e) => {
+    e.preventDefault();
+    dispatch({ type: "ADD_TODO", payload: { name: value, isCompleted: false } });
     setValue("");
-  }
+  };
 
   return (
     <>
-    <StyledDiv>
-        <StyledInput onChange={onChangeInput} value={value} type="text" placeholder="Todoを入力してください" />
-        <StyledButton onClick={onClickSubmit}>送信</StyledButton>
-    </StyledDiv>
+      <StyledDiv>
+        <form onSubmit={e => onClickSubmit(value, e)}>
+          <StyledInput onChange={e => setValue(e.target.value)} value={value} type="text" placeholder="Todoを入力してください" />
+        </form>
+        <StyledButton onClick={e => onClickSubmit(value, e)}>追加</StyledButton>
+      </StyledDiv>
 
     </>
   );

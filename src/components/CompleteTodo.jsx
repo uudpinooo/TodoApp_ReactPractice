@@ -1,30 +1,22 @@
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
-export const CompleteTodo = ({ inCompleteTodos, setInCompleteTodos, completeTodos, setCompleteTodos }) => {
-  const onClickBack = (index) => {
-    // completeTodosから削除
-    const newCompleteTodos = [...completeTodos];
-    newCompleteTodos.splice(index, 1);
-    setCompleteTodos(newCompleteTodos);
-
-    // 対象のtodoをinCompleteTodosへ追加
-    const target = completeTodos[index];
-    const newInCompleteTodos = [...inCompleteTodos, target];
-    setInCompleteTodos(newInCompleteTodos);
-  }
+export const CompleteTodo = ({ completeTodos }) => {
+  const dispatch = useDispatch();
+  const onClickBack = (name) => dispatch({ type: "BACK_TODO", payload: name });
 
   return (
     <>
       <StyledDiv>
         <h3>Completed</h3>
         <ul>
-          {completeTodos.map((completeTodo, index) => {
+          {completeTodos.map((todo, index) => {
             return (
               <StyledLi key={index}>
-                {`・${completeTodo}`}
+                {`・${todo.name}`}
                 <StyledBtns>
-                  <PrimaryButton onClick={() => onClickBack(index)}>戻す</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickBack(todo.name)}>戻す</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
 
