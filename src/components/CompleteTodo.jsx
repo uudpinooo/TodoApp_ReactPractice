@@ -5,7 +5,6 @@ import { onClickBack } from '../reducks/lists/actions';
 
 export const CompleteTodo = ({ completeTodos }) => {
   const dispatch = useDispatch();
-  // const onClickBack = (name) => dispatch({ type: "BACK_TODO", payload: name });
 
   return (
     <>
@@ -15,12 +14,11 @@ export const CompleteTodo = ({ completeTodos }) => {
           {completeTodos.map((todo, index) => {
             return (
               <StyledLi key={index}>
-                {`・${todo.name}`}
+                {`・${todo}`}
                 <StyledBtns>
-                  <PrimaryButton onClick={() => dispatch(onClickBack(todo.name))}>戻す</PrimaryButton>
+                  <PrimaryButton onClick={() => dispatch(onClickBack(todo, index))}>戻す</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
-
             );
           })}
         </ul>
@@ -46,4 +44,3 @@ const StyledBtns = styled.div`
   display: flex;
   margin-left: auto;
 `;
-

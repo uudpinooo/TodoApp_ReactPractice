@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addTodo } from '../reducks/lists/actions';
-import { PrimaryButton } from './PrimaryButton';
+import { PrimaryButton } from '../atoms/PrimaryButton';
 
 export const InputForm = () => {
   const [value, setValue] = useState("");
@@ -22,7 +22,6 @@ export const InputForm = () => {
         </form>
         <StyledButton onClick={e => onClickSubmit(value, e)}>追加</StyledButton>
       </StyledDiv>
-
     </>
   );
 };

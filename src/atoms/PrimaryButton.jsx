@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const PrimaryButton = ({ children, className, onClick }) => {
-
   return (
     <>
       <StyledButton className={className} onClick={onClick} role="button">

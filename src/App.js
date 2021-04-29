@@ -1,14 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import styled from 'styled-components';
-
-import { InputForm } from './atoms/InputForm';
+import { InputForm } from './components/InputForm';
 import { CompleteTodo } from './components/CompleteTodo';
 import { IncompleteTodo } from './components/IncompleteTodo';
 
 function App() {
-  const lists = useSelector(state => state.lists);
-  const inCompleteTodos = lists.filter(list => list.isCompleted === false);
-  const completeTodos = lists.filter(list => list.isCompleted === true);
+  const lists = useSelector(state => state);
+  const inCompleteTodos = lists.incompleteLists;
+  const completeTodos = lists.completeLists;
 
   return (
     <StyledWrapper>
