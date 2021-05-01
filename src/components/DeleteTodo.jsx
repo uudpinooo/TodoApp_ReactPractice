@@ -15,6 +15,12 @@ export const DeleteTodo = memo(() => {
     setIncompleteLists([...incompleteLists, todo]);
   }
 
+  const onClickDelete = (todom, index) => {
+    const newLists = [...deleteLists];
+    newLists.splice(index, 1);
+    setDeleteLists(newLists);
+  }
+
   return (
     <>
       <StyledDiv>
@@ -25,6 +31,7 @@ export const DeleteTodo = memo(() => {
                 {`・${todo}`}
                 <StyledBtns>
                   <PrimaryButton onClick={() => onClickBack(todo, index)}>戻す</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickDelete(todo, index)}>削除</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
             );

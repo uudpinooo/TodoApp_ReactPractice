@@ -18,6 +18,7 @@ const StyledButton = styled.div`
   margin-right: 1.5rem;
   text-align: center;
   border-radius: 5px;
+  user-select: none;
   &:hover {
     cursor: pointer;
     background-color: #fff;
