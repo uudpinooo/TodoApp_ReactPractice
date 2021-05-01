@@ -1,11 +1,12 @@
-import { TopPage } from "./TopPage";
-import { TrashBoxPage } from "./TrashBoxPage";
+import { Provider } from "./providers/Provider";
+import { Router } from "./router/Router";
 
 function App() {
 
   return (
-    <TopPage />
-    // <TrashBoxPage />
+    <Provider>
+      <Router />
+    </Provider>
   );
 }
 

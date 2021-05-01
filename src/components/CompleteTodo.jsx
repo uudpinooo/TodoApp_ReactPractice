@@ -1,22 +1,31 @@
-import { useDispatch } from 'react-redux';
+// 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜 ContextAPI 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+
+import { memo, useContext } from 'react';
 import styled from 'styled-components';
 import { PrimaryButton } from "../atoms/PrimaryButton";
-import { onClickBack } from '../reducks/lists/actions';
+import { Context } from '../providers/Provider';
 
-export const CompleteTodo = ({ completeTodos }) => {
-  const dispatch = useDispatch();
+export const CompleteTodo = memo(() => {
+  const { incompleteLists, setIncompleteLists, completeLists, setCompleteLists } = useContext(Context)
+
+  const onClickBack = (todo, index) => {
+    const newLists = [...completeLists];
+    newLists.splice(index, 1);
+    setCompleteLists(newLists);
+    setIncompleteLists([...incompleteLists, todo]);
+  }
 
   return (
     <>
       <StyledDiv>
         <h3>Completed</h3>
         <ul>
-          {completeTodos.map((todo, index) => {
+          {completeLists.map((todo, index) => {
             return (
               <StyledLi key={index}>
                 {`・${todo}`}
                 <StyledBtns>
-                  <PrimaryButton onClick={() => dispatch(onClickBack(todo, index))}>戻す</PrimaryButton>
+                  <PrimaryButton onClick={() => onClickBack(todo, index)}>戻す</PrimaryButton>
                 </StyledBtns>
               </StyledLi>
             );
@@ -25,7 +34,39 @@ export const CompleteTodo = ({ completeTodos }) => {
       </StyledDiv>
     </>
   );
-};
+});
+
+// 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜 Redux 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+
+// import { memo } from 'react';
+// import { useDispatch } from 'react-redux';
+// import styled from 'styled-components';
+// import { PrimaryButton } from "../atoms/PrimaryButton";
+// import { onClickBack } from '../reducks/lists/actions';
+
+// export const CompleteTodo = memo(({ completeTodos }) => {
+//   const dispatch = useDispatch();
+
+//   return (
+//     <>
+//       <StyledDiv>
+//         <h3>Completed</h3>
+//         <ul>
+//           {completeTodos.map((todo, index) => {
+//             return (
+//               <StyledLi key={index}>
+//                 {`・${todo}`}
+//                 <StyledBtns>
+//                   <PrimaryButton onClick={() => dispatch(onClickBack(todo, index))}>戻す</PrimaryButton>
+//                 </StyledBtns>
+//               </StyledLi>
+//             );
+//           })}
+//         </ul>
+//       </StyledDiv>
+//     </>
+//   );
+// });
 
 const StyledDiv = styled.div`
   display: flex;

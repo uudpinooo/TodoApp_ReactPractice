@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { addTodo } from '../reducks/lists/actions';
-import { PrimaryButton } from '../atoms/PrimaryButton';
+// 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜 ContextAPI 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
 
-export const InputForm = () => {
+import { memo, useContext, useState } from 'react';
+import styled from 'styled-components';
+import { PrimaryButton } from '../atoms/PrimaryButton';
+import { Context } from '../providers/Provider';
+
+export const InputForm = memo(() => {
+  const { incompleteLists, setIncompleteLists } = useContext(Context);
   const [value, setValue] = useState("");
 
-  const dispatch = useDispatch();
   const onClickSubmit = (value, e) => {
+    if (value === "") {
+      e.preventDefault();
+      return;
+    };
+
     e.preventDefault();
-    dispatch(addTodo(value));
+    setIncompleteLists([...incompleteLists, value]);
     setValue("");
   };
 
@@ -24,7 +30,37 @@ export const InputForm = () => {
       </StyledDiv>
     </>
   );
-};
+});
+
+// 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜 Redux 〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+
+// import { memo, useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import styled from 'styled-components';
+// import { addTodo } from '../reducks/lists/actions';
+// import { PrimaryButton } from '../atoms/PrimaryButton';
+
+// export const InputForm = memo(() => {
+//   const [value, setValue] = useState("");
+
+//   const dispatch = useDispatch();
+//   const onClickSubmit = (value, e) => {
+//     e.preventDefault();
+//     dispatch(addTodo(value));
+//     setValue("");
+//   };
+
+//   return (
+//     <>
+//       <StyledDiv>
+//         <form onSubmit={e => onClickSubmit(value, e)}>
+//           <StyledInput onChange={e => setValue(e.target.value)} value={value} type="text" placeholder="Todoを入力してください" />
+//         </form>
+//         <StyledButton onClick={e => onClickSubmit(value, e)}>追加</StyledButton>
+//       </StyledDiv>
+//     </>
+//   );
+// });
 
 const StyledDiv = styled.div`
   display: flex;
