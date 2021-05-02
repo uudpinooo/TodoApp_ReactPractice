@@ -78,7 +78,7 @@ export const DeleteTodo = memo(() => {
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  width: 33vw;
   padding: 0 2rem;
 `;
 
